@@ -55,4 +55,6 @@ class Exercise (ABCMeta):
             for exercise, result in results.items():
                 if not result:
                     print(f'Exercise {exercise} failed. Try again and resubmit.')
+        
+        return score
     
