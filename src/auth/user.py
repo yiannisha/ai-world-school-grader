@@ -84,12 +84,10 @@ class User:
             }
         )
         
-        print(resp)
+        data = resp.json()
         
-        # data = resp.json()
-        
-        # if not data['isValid']:
-        #     raise Exception(data['error']['message'])
+        if not data['isValid']:
+            raise Exception(data['error']['message'])
         
         print('Successfully updated score!')
     
