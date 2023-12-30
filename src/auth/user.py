@@ -73,7 +73,7 @@ class User:
                 "points": points
             })
         
-        resp = requests.post(
+        resp = requests.get(
             "https://api.ai-world-school.com/api/grader/update-score",
             params = {
                 "email": self.email,
