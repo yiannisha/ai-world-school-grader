@@ -89,6 +89,7 @@ class User:
         )
         
         print('resp: ', resp)
+        print('resp text: ', resp.text)
         
         data = resp.json()
         
