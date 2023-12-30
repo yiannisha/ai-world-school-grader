@@ -29,16 +29,15 @@ class Exercise (ABCMeta):
         pass
     
     @classmethod
-    def _check(self) -> int:
+    def _check(self, _locals: dict) -> int:
         """
         Checks the exercise.
         Returns the score.
+        
+        :param _locals: all variables set inside the jupyter notebook
         """
         score = 0
         results = {}
-        
-        # get local variables
-        _locals = globals()
         
         for index, exercise in enumerate(self._get_exercises(self, _locals)):
             try:

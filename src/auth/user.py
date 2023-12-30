@@ -20,9 +20,6 @@ class User:
         self.email = input("Email: ")
         self.password = getpass("Password: ")
         
-        print('email: ', self.email)
-        print('password: ', self.password)
-        
         resp = requests.get(
             "https://api.ai-world-school.com/api/grader/check-user",
             # "http://localhost:8080/api/grader/check-user",
@@ -40,18 +37,19 @@ class User:
         self.logged_in = True
         print('Successfully logged in!')
         
-    def submit(self, exercise: Exercise) -> None:
+    def submit(self, exercise: Exercise, _locals: dict) -> None:
         """
         Submits an exercise.
         
         :param exercise: the exercise to be submitted
+        :param _locals: all variables set inside the jupyter notebook
         """
         
         if not self.logged_in:
             raise Exception('User must be logged in to submit an exercise.')
         
         # check the exercise
-        score = exercise._check()
+        score = exercise._check(_locals)
         
         # update the user's score
         self._update_score(exercise, score)
