@@ -43,7 +43,6 @@ class Exercise (ABCMeta):
             try:
                 results[index + 1] = eval(exercise)
             except KeyError as e:
-                print('error: ', e)
                 results[index + 1] = False
                 
             if results[index + 1]:
