@@ -65,6 +65,14 @@ class User:
         if not self.logged_in:
             raise Exception('User must be logged in to submit an exercise.')
         
+        print({
+                "email": self.email,
+                "password": self.password,
+                "exercise_id": exercise.id,
+                "exercise_total_score": exercise.total_score,
+                "points": points
+            })
+        
         resp = requests.post(
             "https://api.ai-world-school.com/api/grader/update-score",
             params = {
