@@ -18,6 +18,9 @@ class User:
         self.email = input("Email: ")
         self.password = getpass("Password: ")
         
+        print('email: ', self.email)
+        print('password: ', self.password)
+        
         resp = requests.get(
             "http://localhost:8080/api/grader/check-user",
             params = {

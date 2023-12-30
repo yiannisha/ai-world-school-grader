@@ -39,8 +39,6 @@ class Exercise (ABCMeta):
         
         # get local variables
         _locals = globals()
-        print('globals: ', _locals)
-        print('name: ', _locals['name'])
         
         for index, exercise in enumerate(self._get_exercises(self, _locals)):
             try:
