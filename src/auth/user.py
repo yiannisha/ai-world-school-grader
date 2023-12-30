@@ -58,7 +58,7 @@ class User:
         # update the user's score
         self._update_score(exercise, score)
         
-    def _update_score(self, exercise: Exercise, points: int) -> None:
+    def _update_score(self, exercise: Exercise, score: int) -> None:
         """
         Updates the user's score on db.
         
@@ -69,14 +69,6 @@ class User:
         if not self.logged_in:
             raise Exception('User must be logged in to submit an exercise.')
         
-        print({
-                "email": self.email,
-                "password": self.password,
-                "exercise_id": exercise.id,
-                "exercise_total_score": exercise.total_score,
-                "points": points
-            })
-        
         resp = requests.get(
             "https://api.ai-world-school.com/api/grader/update-score",
             params = {
@@ -84,18 +76,13 @@ class User:
                 "password": self.password,
                 "exercise_id": exercise.id,
                 "exercise_total_score": exercise.total_score,
-                "points": points
+                "score": score
             }
         )
         
-        print('resp: ', resp)
-        print('resp text: ', resp.text)
-        
         data = resp.json()
         
-        print('data: ', data)
-        
-        if not data['isValid']:
+        if data['error']:
             raise Exception(data['error']['message'])
         
         print('Successfully updated score!')
