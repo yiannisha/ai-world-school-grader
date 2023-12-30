@@ -84,7 +84,11 @@ class User:
             }
         )
         
+        print('resp: ', resp)
+        
         data = resp.json()
+        
+        print('data: ', data)
         
         if not data['isValid']:
             raise Exception(data['error']['message'])
