@@ -8,6 +8,8 @@ class User:
     Class for representing a user.
     """
     
+    logged_in = False
+    
     def __init__ (self) -> None:
         """
         Constructor.
@@ -22,7 +24,8 @@ class User:
         print('password: ', self.password)
         
         resp = requests.get(
-            "http://localhost:8080/api/grader/check-user",
+            "https://api.ai-world-school.com/api/grader/check-user",
+            # "http://localhost:8080/api/grader/check-user",
             params = {
                 "email": self.email,
                 "password": self.password
@@ -34,6 +37,7 @@ class User:
         if not data['isValid']:
             raise Exception(data['error']['message'])
         
+        self.logged_in = True
         print('Successfully logged in!')
         
     def submit(self, exercise: Exercise) -> None:
@@ -42,6 +46,9 @@ class User:
         
         :param exercise: the exercise to be submitted
         """
+        
+        if not self.logged_in:
+            raise Exception('User must be logged in to submit an exercise.')
         
         # check the exercise
         score = exercise._check()
@@ -57,8 +64,11 @@ class User:
         :param points: the score to be added to the user's score
         """
         
+        if not self.logged_in:
+            raise Exception('User must be logged in to submit an exercise.')
+        
         resp = requests.post(
-            "http://localhost:8080/api/grader/update-score",
+            "https://api.ai-world-school.com/api/grader/update-score",
             params = {
                 "email": self.email,
                 "password": self.password,
